@@ -26,7 +26,7 @@ function Choice(props) {
     props.setStart(true);
   }
   return (
-    <Form onSubmit={handleSubmit} className="bg-light w-50 p-2 position-absolute top-50 start-50 translate-middle">
+    <Form onSubmit={handleSubmit} className="bg-warning w-50 p-3 position-absolute top-50 start-50 translate-middle">
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
         <Form.Label column sm={2}>
           Category

@@ -110,7 +110,7 @@ function Body() {
                   <h1 className="text-success">{score}</h1>
                 </div>
                   <ProgressBar className="mb-1" animated now={(qindex + 1/questions.length) } />
-                <div className=" bg-warning p-5 ">
+                <div className=" bg-dark p-5 ">
                   <CardComp
                     quix={questions[qindex]}
                     userAn={userAns}
@@ -119,27 +119,31 @@ function Body() {
                     setOpen={setOpen}
                   />
 
-                  <Button onClick={() => setOpen(!open)} className="mt-1">
+                  <Button onClick={() => setOpen(!open)} className="mt-1 bg-dark">
                     Skip
                   </Button>
                 </div>
               </div>
             ) : (
-              <h1 className="text-light">
+              <div className="bg-light p-2">
+              <h1 className="text-success">
                 congrats, you got {score} questions right <br /> out of{" "}
                 {questions.length}
+                </h1>
                 <Button
                   onClick={() => {
                     setQindex(0);
                     setScore(0);
                     setOpen(open);
+                    
                     setUserAns(-1);
+                    setStart(false)
                   }}
                   className="ms-5 mt-1"
                 >
                   Restart
                 </Button>
-              </h1>
+                </div>
             )}
           </Fade>}
         </Container>

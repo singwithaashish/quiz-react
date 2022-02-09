@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Card, Button, Container, Fade, Collapse, ProgressBar } from "react-bootstrap";
+import { Card, Button, Container, Fade, Collapse, ProgressBar, Spinner } from "react-bootstrap";
 import Particles from "react-tsparticles";
 import CardComp from "../Card/CardComp";
-import alld from "./data";
+import category from "./category";
+import Choice from "./Choice";
 import partconf from "./particleConfig.json";
 
 function Body() {
   const [questions, setQuestions] = useState(null);
-  const [userAns, setUserAns] = useState(-1);
-  const [qindex, setQindex] = useState(0);
-  const [open, setOpen] = useState(true);
-  const [score, setScore] = useState(0);
+  const [userAns, setUserAns] = useState(-1); // * -1 means no answer yet
+  const [qindex, setQindex] = useState(0); // * current question index
+  const [open, setOpen] = useState(true); // * open/close the card, with animation
+  const [score, setScore] = useState(0);  // * score
+  const [start, setStart] = useState(false); // * start/stop the quiz
 
+  const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [type, setType] = useState("multiple"); 
+  const [num, setNum] = useState(10);
+
+  
+  
   useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=40")
+    // console.log(`https://opentdb.com/api.php?amount=40&category=${category}&difficulty=${difficulty}&type=${type}`)
+
+    // the api is returning 0 values when there is not enough values for the category, causing the error
+    fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=${type}`)
       .then((response) => response.json())
       .then((dat) => {
         const da = dat.results.map((el) => {
@@ -30,11 +42,11 @@ function Body() {
         });
         setQuestions(da);
       });
-  }, []);
+  }, [start]);
 
   // * randomize the data
   function insertCorr(arr, corr) {
-    const randInd = Math.floor(Math.random() * 4);
+    const randInd = Math.floor(Math.random() * arr.length+1);
     let na = [...arr];
     na.splice(randInd, 0, corr);
 
@@ -69,7 +81,21 @@ function Body() {
         <Container>
           <Particles options={partconf} />
 
-        {questions === null ? <h1 className="text-light">Loading</h1> : 
+        {!start ? <Choice 
+        
+        type={type}
+        num={num}
+        setType={setType}
+        setNum={setNum}
+        setStart={setStart}
+        category={category}
+        setCategory={setCategory}
+        difficulty={difficulty}
+        setDifficulty={setDifficulty}
+
+        /> :
+        // * if started and questions have been fetched, then show the card
+        questions === null ? /*<h1 className="text-light">Loading</h1>*/<Spinner/> : 
           <Fade
             in={open}
             onExited={() => onAns()}

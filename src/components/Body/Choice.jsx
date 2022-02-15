@@ -26,15 +26,15 @@ function Choice(props) {
     props.setStart(true);
   }
   return (
-    <Form onSubmit={handleSubmit} className="bg-warning w-50 p-3 position-absolute top-50 start-50 translate-middle">
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-        <Form.Label column sm={2}>
+    <Form onSubmit={handleSubmit} className=" bg-warning p-3 position-absolute top-50 start-50 translate-middle" style={{minWidth: "20rem"}}>
+      <Form.Group as={Row} className="mx-auto" controlId="formHorizontalEmail">
+        <Form.Label column sm={4}>
           Category
         </Form.Label>
         <Col sm={10}>
           <DropdownButton
             variant="outline-secondary"
-            title={props.category ? category.find(o => o.id == props.category).name : "Select Category"} 
+            title={props.category ? category.find(o => o.id == props.category).name : "Any"} 
             id="cat"
           >
             {category.map((cat, index) => {
@@ -46,8 +46,8 @@ function Choice(props) {
 
       
       <fieldset>
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label as="legend" column sm={2}>
+        <Form.Group as={Row} className="my-3 mx-auto">
+          <Form.Label as="legend" column sm={4}>
             Difficulty
           </Form.Label>
           <Col sm={10}>
@@ -70,7 +70,10 @@ function Choice(props) {
         </Form.Group>
       </fieldset>
 
-      <fieldset>
+
+      {/* some categories don't have boolean options, causing error */}
+
+      {/* <fieldset>
       <Form.Group as={Row} className="mb-3">
           <Form.Label as="legend" column sm={2}>
             Question Type
@@ -93,7 +96,9 @@ function Choice(props) {
             
           </Col>
         </Form.Group>
-        </fieldset>
+        </fieldset> */}
+
+        
       
 
       <Form.Group as={Row} className="mb-3">

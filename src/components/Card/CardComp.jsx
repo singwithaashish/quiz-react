@@ -25,8 +25,8 @@ function CardComp(props) {
 
   return (
     <div className="box bg-dark">
-      <div className="d-flex justify-content-around">
-        <Badge bg="secondary">{props['quix']['category']}</Badge>
+      <div className="d-flex justify-content-around bg-warning border border-light rounded p-2">
+        <Badge bg="dark">{props['quix']['category']}</Badge>
         <Badge bg="dark">{props['quix']['difficulty']}</Badge>
       </div>
       <h2 className="text-light">{he.decode(props['quix']['question'])}</h2>
